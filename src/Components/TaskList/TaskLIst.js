@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import NewTaskForm from "../NewTaskForm/NewTaskForm";
 import Task from "../Task/Task";
+import "./TaskList.css";
 
 class TaskList extends Component {
   constructor(props) {
@@ -8,6 +9,7 @@ class TaskList extends Component {
     this.state = { tasks: [] };
     this.createTask = this.createTask.bind(this);
     this.remove = this.remove.bind(this);
+    this.update = this.update.bind(this);
   }
 
   createTask(newTask) {
@@ -22,6 +24,16 @@ class TaskList extends Component {
     });
   }
 
+  update(id, updatedTask) {
+    const updatedTasks = this.state.tasks.map((task) => {
+      if (task.id === id) {
+        return { ...task, newTask: updatedTask };
+      }
+      return task;
+    });
+    this.setState({ tasks: updatedTasks });
+  }
+
   render() {
     const tasks = this.state.tasks.map((task) => (
       <Task
@@ -29,11 +41,15 @@ class TaskList extends Component {
         id={task.id}
         taskItem={task.newTask}
         remove={this.remove}
+        updateTask={this.update}
       />
     ));
     return (
-      <div>
-        {tasks}
+      <div className="TaskList">
+        <h1>
+          Task List <span>A Simple Way To Organize Tasks</span>
+        </h1>
+        <ul>{tasks}</ul>
         <NewTaskForm createTask={this.createTask} />
       </div>
     );
