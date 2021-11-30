@@ -1,5 +1,5 @@
 import "./App.css";
-import TaskList from "../TaskList";
+import TaskList from "../TaskList/TaskLIst";
 
 import React, { Component } from "react";
 
