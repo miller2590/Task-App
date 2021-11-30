@@ -17,23 +17,23 @@ class TaskList extends Component {
   }
 
   remove(id) {
-      this.setState({
-          tasks: this.state.tasks.filter( task => task.id !== id)
-      })
+    this.setState({
+      tasks: this.state.tasks.filter((task) => task.id !== id),
+    });
   }
 
   render() {
-      const tasks = this.state.tasks.map(task => (
-        <Task 
-            key={task.id}
-            id={task.id}
-            taskItem={task.newTask}
-            remove={this.remove}
-        />
-      ))
+    const tasks = this.state.tasks.map((task) => (
+      <Task
+        key={task.id}
+        id={task.id}
+        taskItem={task.newTask}
+        remove={this.remove}
+      />
+    ));
     return (
       <div>
-          {tasks}
+        {tasks}
         <NewTaskForm createTask={this.createTask} />
       </div>
     );
