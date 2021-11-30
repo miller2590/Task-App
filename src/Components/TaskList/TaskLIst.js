@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import NewTaskForm from "../NewTaskForm/NewTaskForm";
-import Task from '../Task/Task'
+import Task from "../Task/Task";
 
-class TaskLIst extends Component {
+class TaskList extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      tasks: [],
-    };
+    this.state = { tasks: [] };
     this.createTask = this.createTask.bind(this);
+    this.remove = this.remove.bind(this);
   }
 
   createTask(newTask) {
@@ -17,16 +16,28 @@ class TaskLIst extends Component {
     });
   }
 
+  remove(id) {
+      this.setState({
+          tasks: this.state.tasks.filter( task => task.id !== id)
+      })
+  }
+
   render() {
+      const tasks = this.state.tasks.map(task => (
+        <Task 
+            key={task.id}
+            id={task.id}
+            taskItem={task.newTask}
+            remove={this.remove}
+        />
+      ))
     return (
       <div>
-        <Task />
-        <NewTaskForm 
-            createTask={this.createTask}
-        />
+          {tasks}
+        <NewTaskForm createTask={this.createTask} />
       </div>
     );
   }
 }
 
-export default TaskLIst;
+export default TaskList;
