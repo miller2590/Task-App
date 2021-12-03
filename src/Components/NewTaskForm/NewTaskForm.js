@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { v4 } from "uuid";
+import "./NewTaskForm.css"
 
 class NewTaskForm extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class NewTaskForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const newTask = { ...this.state, id: v4() };
+    const newTask = { ...this.state, id: v4(), completed: false };
     this.props.createTask(newTask);
     this.setState({
       newTask: "",
@@ -26,7 +27,7 @@ class NewTaskForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form className="newTaskForm" onSubmit={this.handleSubmit}>
         <div>
           <div>
             <label htmlFor="newTask">New Task</label>

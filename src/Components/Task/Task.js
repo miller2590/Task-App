@@ -12,6 +12,7 @@ class Task extends Component {
     this.toggleForm = this.toggleForm.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
   }
 
   handleClick() {
@@ -36,12 +37,16 @@ class Task extends Component {
     });
   }
 
+  handleToggle(e) {
+    this.props.toggleCompletion(this.props.id);
+  }
+
   render() {
     let result;
     if (this.state.isEditing) {
       result = (
         <div>
-          <form onSubmit={this.handleUpdate}>
+          <form className="Task-form-edit" onSubmit={this.handleUpdate}>
             <input
               type="text"
               value={this.state.task}
@@ -55,10 +60,21 @@ class Task extends Component {
     } else {
       result = (
         <div className="Task">
-          <li>{this.props.taskItem}</li>
-          <div>
-            <button onClick={this.toggleForm}>Edit</button>
-            <button onClick={this.handleClick}>X</button>
+          <li
+            className={
+              this.props.completed ? "Task-item completed" : "Task-item"
+            }
+            onClick={this.handleToggle}
+          >
+            {this.props.taskItem}
+          </li>
+          <div className="Task-btns">
+            <button onClick={this.toggleForm}>
+            <i class="fas fa-pen"></i>
+            </button>
+            <button onClick={this.handleClick}>
+              <i class="fas fa-trash"></i>
+            </button>
           </div>
         </div>
       );
